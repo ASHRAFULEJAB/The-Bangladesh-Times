@@ -6,35 +6,63 @@ const loadAllCategories = async() =>{
 }
 
 const setAllCategoriesName= async()=>{
-
+      
         const data1 =await loadAllCategories();
-        const category = document.getElementById('all-categories');        
+        
+        const category = document.getElementById('all-categories'); 
+               
         for( const news of data1){
             // console.log(news.category_name);
+            
             const li = document.createElement('li');
             li.innerHTML = `
             <a onclick="getNewsDetails('${news.category_id}')" class="nav-link active" aria-current="page ">${news.category_name}</a>
             `;
             category.appendChild(li);
+            
         }
+        
         
         
 }
 
 const getNewsDetails=async(category_id)=>{
+    toggleSpinner(true)
+        // console.log(toggleSpinner)
     const url =`https://openapi.programming-hero.com/api/news/category/${category_id}`
     const res = await fetch(url);
     const data = await res.json();
     newsData=data.data
-    console.log(newsData);
+    // console.log(newsData);
     newsLoading (newsData);
+    
 }
 
 const newsLoading = (news)=>{
+    // console.log(news)
     const categoryNews = document.getElementById('new-details'); 
+
+    const newsCount = document.getElementById('news-count');
+   
+     const newNewsCount = news.length;
+     newsCount.value = newNewsCount
+    //  newsCount.innerHTML = `
+    //      <p> ${newsCount.value > 0 ? ${newsCount.value},${news.category_name} : ' No News Found'}</p>
+    //  `
+     if(newNewsCount > 0){
+
+          newsCount.value= newNewsCount + 'News Found'
+
+     }
+     else if(newNewsCount <=0){
+         newsCount.value = 'No News Found'
+       
+     }
+     
+     
     categoryNews.textContent='';
     news.forEach(newsInfo =>{
-
+        
         const newsSection = document.createElement('div');
                 newsSection.classList.add('col');
                 const {thumbnail_url,title,details,author,total_view}=newsInfo;
@@ -43,8 +71,8 @@ const newsLoading = (news)=>{
                 <div class="card">
                 <img src="${thumbnail_url}" class="card-img-fluid" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">${title ? title : 'No Name Found'  }</h5>
-                  <p class="card-text">${details.slice(0,100)}...</p>
+                  <h5 class="card-title">${title.length >15 ? title.slice(0,15)+ '...' : 'No Name Found'  }</h5>
+                  <p class="card-text">${details.length>100 ?details.slice(0,100)+'...': details}</p>
                   <div class="d-flex p-2">
                   <p class="me-5"> ${author.name ?author.name : 'No Data Found' }</p>
                   <img  width="40" height="40"class="rounded-circle me-5"  src="${author.img}"/>
@@ -56,15 +84,25 @@ const newsLoading = (news)=>{
                            
                            
                 `;
-                categoryNews.appendChild(newsSection);
+                categoryNews.appendChild(newsSection,newsCount);
 
-    })
+            })
+            toggleSpinner(false);
 }
 
 
 
+// spinner
 
-
+const toggleSpinner = isLoading =>{
+    const loadingSpinner = document.getElementById('spinner');
+    if(isLoading){
+        loadingSpinner.classList.remove('d-none');
+    }
+    else{
+        loadingSpinner.classList.add('d-none');
+    }
+}
 
 
 

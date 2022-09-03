@@ -26,9 +26,15 @@
 
     <main class="container mt-4">
          <!-- Categories part -->
-         <ul id="all-categories" class="nav justify-content-center bg-light p-4">
+        <section>
+          <ul  id="all-categories" class="nav justify-content-center bg-light p-4">
             
           </ul>
+    
+        </section>
+        <section class="mt-3 ">
+          <input id="news-count" class="form-control bg-light" type="text" value="" aria-label="readonly input example" readonly>
+        </section>
           
           <!-- news details -->
           <section class="mt-5">
@@ -39,6 +45,16 @@
                   </div>
               </div>
           </section>
+          <!-- spinner part -->
+        <section id="spinner" class="d-none">
+          <div style="height:400px;" class="d-flex justify-content-center align-items-center">
+              <div class="spinner-border text-danger" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+      </section>
+
+
           <section>
             <!-- Modal -->
             <div class="modal fade" id="newsDetailsModal" tabindex="-1" aria-labelledby="newsDetailsModalLabel" aria-hidden="true">
