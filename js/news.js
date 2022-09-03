@@ -43,7 +43,7 @@ const setAllCategoriesName= async()=>{
 
 
 const loadNews = async()=>{
-    const url ='https://openapi.programming-hero.com/api/news/category/05'
+    const url ='https://openapi.programming-hero.com/api/news/category/02'
     const res = await fetch(url);
     const data = await res.json();
     newsData=data.data
@@ -62,14 +62,16 @@ const setAllNews= async()=>{
         newsSection.innerHTML = `
                    
         <div class="card">
-        <img src="${newNews.thumbnail_url}" class="card-img-top" alt="...">
+        <img src="${newNews.thumbnail_url}" class="card-img-fluid" alt="...">
         <div class="card-body">
-          <h5 class="card-title">${newNews.title}</h5>
-          <p class="card-text">${newNews.details.slice(0,180)}...</p>
-          <p> ${newNews.author.name}</p>
-          <img class="img-fluid" src="${newNews.author.img}"/>
-          <p> ${newNews.total_view}</p>
-          <button type="button" class="btn btn-primary"> Show Details</button>
+          <h5 class="card-title">${newNews.title ? newNews.title : 'No Name Found'  }</h5>
+          <p class="card-text">${newNews.details.slice(0,100)}...</p>
+          <div class="d-flex p-2">
+          <p class="me-5"> ${newNews.author.name ?newNews.author.name : 'No Data Found' }</p>
+          <img  width="40" height="40"class="rounded-circle me-5"  src="${newNews.author.img}"/>
+          <p> ${newNews.total_view ?newNews.total_view : 'No Data Found'}</p>
+          </div>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailsModal"> Show Details</button>
 
           </div>
                    
