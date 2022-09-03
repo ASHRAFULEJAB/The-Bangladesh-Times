@@ -1,4 +1,8 @@
-.image-edit{
-    height: 10px !important;
-    width: 50px !important;
-}
+/* footer */
+.footer-container {
+    position: relative;
+    width: 100vw;
+    height: 50vh;
+    left: calc(-50vw + 49%);
+    background-color: black;
+    }
