@@ -7,21 +7,27 @@ const loadAllCategories = async() =>{
 
 const setAllCategoriesName= async()=>{
       
+    try {
         const data1 =await loadAllCategories();
-        
-        
-        const category = document.getElementById('all-categories'); 
-               
-        for( const news of data1){
-            // console.log(news.category_name);
             
-            const li = document.createElement('li');
-            li.innerHTML = `
-            <a onclick="getNewsDetails('${news.category_id}')" class="nav-link active" aria-current="page ">${news.category_name}</a>
-            `;
-            category.appendChild(li);
             
-        }
+            const category = document.getElementById('all-categories'); 
+                   
+            for( const news of data1){
+                // console.log(news.category_name);
+                
+                const li = document.createElement('li');
+                li.innerHTML = `
+                <a onclick="getNewsDetails('${news.category_id}')" class="nav-link active" aria-current="page ">${news.category_name}</a>
+                `;
+                category.appendChild(li);
+                
+            }
+        
+    } catch (error) {
+        console.log(error)
+        
+    }    
    
 }
 
@@ -76,7 +82,7 @@ const newsLoading = (news)=>{
                   <div class="d-flex p-2">
                   <p class="me-5"> ${author.name ?author.name : 'No Data Found' }</p>
                   <img  width="40" height="40"class="rounded-circle me-5"  src="${author.img}"/>
-                  <p> ${total_view ?total_view : 'No Data Found'}</p>
+                  <p><span class="text-dark fw-bold">Views</span>: ${total_view ? total_view + 'K': 'No Data Found'}</p>
                   </div>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailsModal"
                    onclick="displayNewsModal('${title}','${image_url}')"> Show Details</button>
