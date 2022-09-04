@@ -47,7 +47,16 @@ const getNewsDetails=async(category_id)=>{
 const newsLoading = (news)=>{
     // console.log(news)
     // return {_id}=news;
-    
+    let sortView =function(a,b){
+        if(a.total_view > b.total_view){
+            return -1;
+        }
+        else if(a.total_view < b.total_view){
+            return 1;
+        }
+     }
+     
+    news.sort(sortView);
 
     const categoryNews = document.getElementById('new-details'); 
 
@@ -65,12 +74,12 @@ const newsLoading = (news)=>{
      else if(newNewsCount <=0){
          newsCount.value = 'No News Found'
      }
-     
-     
+    
     categoryNews.textContent='';
     // const newsDetailsModal = document.getElementById('newsDetailsModalLabel');
     news.forEach(newsInfo =>{
-        
+     
+               
         // console.log(newsInfo)
         const newsSection = document.createElement('div');
                 newsSection.classList.add('col');
@@ -94,9 +103,7 @@ const newsLoading = (news)=>{
                            
                 `;
                 categoryNews.appendChild(newsSection,newsCount);
-                // newsInfo.sort((a,b)=>{
-                //     console.log(b.total_view-a.total_view);
-                // });
+                
             })
             toggleSpinner(false);
 
