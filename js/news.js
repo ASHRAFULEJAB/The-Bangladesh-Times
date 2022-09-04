@@ -14,7 +14,7 @@ const setAllCategoriesName= async()=>{
             const category = document.getElementById('all-categories'); 
                    
             for( const news of data1){
-                // console.log(news.category_name);
+                
                 
                 const li = document.createElement('li');
                 li.innerHTML = `
@@ -33,20 +33,19 @@ const setAllCategoriesName= async()=>{
 
 const getNewsDetails=async(category_id)=>{
     toggleSpinner(true)
-        // console.log(toggleSpinner)
+        
     const url =`https://openapi.programming-hero.com/api/news/category/${category_id}`
     const res = await fetch(url);
     const data = await res.json();
     newsData=data.data
-    // console.log(newsData);
+    
     newsLoading (newsData);
     return (newsData);
     
 }
 
 const newsLoading = (news)=>{
-    // console.log(news)
-    // return {_id}=news;
+    
     let sortView =function(a,b){
         if(a.total_view > b.total_view){
             return -1;
@@ -64,9 +63,7 @@ const newsLoading = (news)=>{
    
      const newNewsCount = news.length;
      newsCount.value = newNewsCount
-    //  newsCount.innerHTML = `
-    //      <p> ${newsCount.value > 0 ? ${newsCount.value},${news.category_name} : ' No News Found'}</p>
-    //  `
+      
      if(newNewsCount > 0){
 
           newsCount.value= newNewsCount + 'News Found'
@@ -76,11 +73,11 @@ const newsLoading = (news)=>{
      }
     
     categoryNews.textContent='';
-    // const newsDetailsModal = document.getElementById('newsDetailsModalLabel');
+    
     news.forEach(newsInfo =>{
      
                
-        // console.log(newsInfo)
+        
         const newsSection = document.createElement('div');
                 newsSection.classList.add('col');
                 const {thumbnail_url,title,details,author,total_view,image_url}=newsInfo;
@@ -97,7 +94,7 @@ const newsLoading = (news)=>{
                   <p><span class="text-dark fw-bold">Views</span>: ${total_view ? total_view + 'K': 'No Data Found'}</p>
                   </div>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailsModal"
-                   onclick="displayNewsModal('${title}','${image_url}','${total_view}')"> Show Details</button>
+                   onclick="displayNewsModal('${title}','${image_url}')"> Show Details</button>
         
                   </div>
                            
@@ -107,29 +104,18 @@ const newsLoading = (news)=>{
             })
             toggleSpinner(false);
 
-            // const {id}=news;
-            // console.log(id)
 
 }
 
-// const newsLoadModal = async ()=>{
-//     const newsData =  await getNewsDetails();
-//     console.log(newsData)
-    // const url = `https://openapi.programming-hero.com/api/news/${id}`;
-    // console.log(newsData)
-//     const res = await fetch(url);
-//     const data = res.json();
-//     const dataNews = data._id;
-//     displayNewsModal (dataNews)
-// }
+
 
  const displayNewsModal = (title,image_url,details,total_view)=>{
-    // console.log(details,total_view)
+    
     const modalTitle = document.getElementById('newsDetailsModalLabel');
     modalTitle.innerText=title;
     const newsModalDetails = document.getElementById('news-modal-details');
+    
    newsModalDetails.innerHTML = `
-   <p> <span class="text-dark fw-bold">Views:</span>${details}</p>
    
    <img class="img-fluid" src="${image_url}"/>
    `;
