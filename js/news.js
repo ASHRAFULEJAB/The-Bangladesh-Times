@@ -47,6 +47,8 @@ const getNewsDetails=async(category_id)=>{
 const newsLoading = (news)=>{
     // console.log(news)
     // return {_id}=news;
+    
+
     const categoryNews = document.getElementById('new-details'); 
 
     const newsCount = document.getElementById('news-count');
@@ -68,6 +70,7 @@ const newsLoading = (news)=>{
     categoryNews.textContent='';
     // const newsDetailsModal = document.getElementById('newsDetailsModalLabel');
     news.forEach(newsInfo =>{
+        
         // console.log(newsInfo)
         const newsSection = document.createElement('div');
                 newsSection.classList.add('col');
@@ -85,13 +88,15 @@ const newsLoading = (news)=>{
                   <p><span class="text-dark fw-bold">Views</span>: ${total_view ? total_view + 'K': 'No Data Found'}</p>
                   </div>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailsModal"
-                   onclick="displayNewsModal('${title}','${image_url}')"> Show Details</button>
+                   onclick="displayNewsModal('${title}','${image_url}','${total_view}')"> Show Details</button>
         
                   </div>
                            
                 `;
                 categoryNews.appendChild(newsSection,newsCount);
-
+                // newsInfo.sort((a,b)=>{
+                //     console.log(b.total_view-a.total_view);
+                // });
             })
             toggleSpinner(false);
 
@@ -117,7 +122,8 @@ const newsLoading = (news)=>{
     modalTitle.innerText=title;
     const newsModalDetails = document.getElementById('news-modal-details');
    newsModalDetails.innerHTML = `
-     
+   <p> <span class="text-dark fw-bold">Views:</span>${details}</p>
+   
    <img class="img-fluid" src="${image_url}"/>
    `;
    
