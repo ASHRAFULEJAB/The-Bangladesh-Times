@@ -123,7 +123,7 @@ const newsLoading = (news)=>{
  }
  
 
-// spinner
+// spinneer
 
 const toggleSpinner = isLoading =>{
     const loadingSpinner = document.getElementById('spinner');
